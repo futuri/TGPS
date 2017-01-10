@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+	<meta charset="UTF-8">
+	<title>Cliente</title>
+	<script src="//cdn.socket.io/socket.io-1.4.5.js"></script>
+</head>
+<body>
+	<button>Rastrear</button> 
+	<button>Monitorear</button>
+	<div class="retorno"></div>
+	<script>
+		
+		var socket = io.connect('http://localhost:8080');
+
+		document.querySelectorAll('button')[0].addEventListener('click',function (e) {
+			socket.emit('command',{action:'tracking'});
+		});
+
+		document.querySelectorAll('button')[1].addEventListener('click',function (e) {
+			socket.emit('command',{action:'monitoring'});
+		});
+
+		socket.on('position', function (data) {
+			console.log(data);
+		});
+	</script>
+</body>
+</html>

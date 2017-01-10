@@ -1,0 +1,11 @@
+{
+  "name": "TGPS",
+  "version": "0.0.1",
+  "description": "Traking gps android",
+  "main": "index.js",
+  "author": "Heber Futuri",
+  "license": "MIT",
+  "dependencies": {
+    "socketio": "^1.0.0"
+  }
+}

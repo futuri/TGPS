@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+	<meta charset="UTF-8">
+	<title>GPS Simulación</title>
+	<script src="//cdn.socket.io/socket.io-1.4.5.js"></script>
+</head>
+<body>
+	<button>Simular</button>
+	<script>
+		var socket = io.connect('http://localhost:8080');
+		var status = "false";
+		var interval = 0;
+
+		socket.on("command", function (data) {
+
+			console.log(data);
+
+			if (data.action==="tracking") {
+
+				socket.emit('position',{'lat':'lat00000','lon':'lon00000'});
+
+			}else if (data.action==="monitoring") {
+
+
+				if (status==="true") {
+					status = "false";
+					clearInterval(interval);
+				}else{
+					status = "true";
+					interval = setInterval(function() {
+						socket.emit('position',{'lat':'lat00000','lon':'lon00000'});
+					}, 1000);
+				}
+			}
+		});
+
+		//simular 
+		document.querySelectorAll('button')[0].addEventListener('click',function (e) {
+			socket.emit('position',{'lat':'lat00000','lon':'lon00000'});
+		});
+
+	</script>
+</body>
+</html>
